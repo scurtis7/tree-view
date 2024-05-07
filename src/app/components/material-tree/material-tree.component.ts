@@ -4,6 +4,7 @@ import { MatTreeFlatDataSource, MatTreeFlattener } from "@angular/material/tree"
 import { FlatTreeControl } from "@angular/cdk/tree";
 import { ClientService } from "../../service/client.service";
 import { Client } from "../../model/client";
+import { Tenant } from "../../model/tenant";
 
 
 class NodeData {
@@ -15,6 +16,7 @@ class NodeData {
 /** Flat node with expandable and level information */
 interface ExampleFlatNode {
   expandable: boolean;
+  id: number;
   name: string;
   level: number;
 }
@@ -28,6 +30,8 @@ export class MaterialTreeComponent implements OnInit {
 
   clientSelected = false;
   tenantSelected = false;
+  selectedClient: Client = null;
+  selectedTenant: Tenant = null;
 
   clients: Client[];
   treeData: NodeData[];
@@ -35,6 +39,7 @@ export class MaterialTreeComponent implements OnInit {
   private _transformer = (node: NodeData, level: number) => {
     return {
       expandable: !!node.children && node.children.length > 0,
+      id: node.id,
       name: node.name,
       level: level,
     };
@@ -65,20 +70,42 @@ export class MaterialTreeComponent implements OnInit {
 
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
-  selectClient() {
-    this.tenantSelected = false;
-    this.clientSelected = true;
-    console.log("Client Selected");
-  }
-
-  selectTenant() {
-    this.clientSelected = false;
-    this.tenantSelected = true;
-    console.log("Tenant Selected");
-  }
-
   dashboard() {
     this.router.navigate(['dashboard']);
+  }
+
+  selectClient(id: number) {
+    this.tenantSelected = false;
+    this.clientSelected = true;
+    this.findClient(id);
+  }
+
+  selectTenant(id: number) {
+    this.clientSelected = false;
+    this.tenantSelected = true;
+    this.findTenant(id);
+  }
+
+  private findClient(id: number): Client {
+    for (const client of this.clients) {
+      if (client.clientId === id) {
+        this.selectedClient = client;
+        return;
+      }
+    }
+    this.selectedClient = null;
+  }
+
+  private findTenant(id: number) {
+    for (const client of this.clients) {
+      for (const tenant of client.tenants) {
+        if (tenant.tenantId === id) {
+          this.selectedTenant = tenant;
+          return;
+        }
+      }
+    }
+    this.selectedTenant = null;
   }
 
   private getTreeData() {

@@ -18,6 +18,13 @@
         "tenantName": "Another tenant",
         "tenantDesc": "Another tenant for testing",
         "active": true
+      },
+      {
+        "tenantId": 11,
+        "clientId": 1,
+        "tenantName": "TestingForDomainID",
+        "tenantDesc": "Testing",
+        "active": true
       }
     ]
   },
@@ -32,6 +39,13 @@
         "clientId": 2,
         "tenantName": "Wellpoint",
         "tenantDesc": "Wellpoint Health Plan",
+        "active": true
+      },
+      {
+        "tenantId": 4,
+        "clientId": 2,
+        "tenantName": "Carelon",
+        "tenantDesc": "Carelon Health Plan",
         "active": true
       }
     ]
