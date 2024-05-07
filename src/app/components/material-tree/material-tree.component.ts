@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from "@angular/router";
-import { MatTreeFlatDataSource, MatTreeFlattener, MatTreeNestedDataSource } from "@angular/material/tree";
-import { FlatTreeControl, NestedTreeControl } from "@angular/cdk/tree";
+import { MatTreeFlatDataSource, MatTreeFlattener } from "@angular/material/tree";
+import { FlatTreeControl } from "@angular/cdk/tree";
 
 
 /**
@@ -16,18 +16,18 @@ interface FoodNode {
 const TREE_DATA: FoodNode[] = [
   {
     name: 'Fruit',
-    children: [{name: 'Apple'}, {name: 'Banana'}, {name: 'Fruit loops'}],
+    children: [{ name: 'Apple' }, { name: 'Banana' }, { name: 'Fruit loops' }],
   },
   {
     name: 'Vegetables',
     children: [
       {
         name: 'Green',
-        children: [{name: 'Broccoli'}, {name: 'Brussels sprouts'}],
+        children: [{ name: 'Broccoli' }, { name: 'Brussels sprouts' }],
       },
       {
         name: 'Orange',
-        children: [{name: 'Pumpkins'}, {name: 'Carrots'}],
+        children: [{ name: 'Pumpkins' }, { name: 'Carrots' }],
       },
     ],
   },
@@ -50,18 +50,6 @@ export class MaterialTreeComponent {
 
   clientSelected = false;
   tenantSelected = false;
-
-  // treeControl = new NestedTreeControl<FoodNode>(node => node.children);
-  // dataSource = new MatTreeNestedDataSource<FoodNode>();
-
-  // constructor(private router: Router) {
-  //   this.dataSource.data = TREE_DATA;
-  // }
-
-  dashboard() {
-    this.router.navigate(['dashboard']);
-    this.dataSource.data = TREE_DATA;
-  }
 
   private _transformer = (node: FoodNode, level: number) => {
     return {
@@ -101,6 +89,11 @@ export class MaterialTreeComponent {
     this.clientSelected = false;
     this.tenantSelected = true;
     console.log("Tenant Selected");
+  }
+
+  dashboard() {
+    this.router.navigate(['dashboard']);
+    this.dataSource.data = TREE_DATA;
   }
 
 }
