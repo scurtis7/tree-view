@@ -1,37 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { MatTreeFlatDataSource, MatTreeFlattener } from "@angular/material/tree";
 import { FlatTreeControl } from "@angular/cdk/tree";
+import { ClientService } from "../../service/client.service";
+import { Client } from "../../model/client";
 
 
-/**
- * Food data with nested structure.
- * Each node has a name and an optional list of children.
- */
-interface FoodNode {
+class NodeData {
+  id: number;
   name: string;
-  children?: FoodNode[];
+  children?: NodeData[];
 }
-
-const TREE_DATA: FoodNode[] = [
-  {
-    name: 'Fruit',
-    children: [{ name: 'Apple' }, { name: 'Banana' }, { name: 'Fruit loops' }],
-  },
-  {
-    name: 'Vegetables',
-    children: [
-      {
-        name: 'Green',
-        children: [{ name: 'Broccoli' }, { name: 'Brussels sprouts' }],
-      },
-      {
-        name: 'Orange',
-        children: [{ name: 'Pumpkins' }, { name: 'Carrots' }],
-      },
-    ],
-  },
-];
 
 /** Flat node with expandable and level information */
 interface ExampleFlatNode {
@@ -40,18 +19,20 @@ interface ExampleFlatNode {
   level: number;
 }
 
-
 @Component({
   selector: 'app-material-tree',
   templateUrl: './material-tree.component.html',
   styleUrl: './material-tree.component.scss'
 })
-export class MaterialTreeComponent {
+export class MaterialTreeComponent implements OnInit {
 
   clientSelected = false;
   tenantSelected = false;
 
-  private _transformer = (node: FoodNode, level: number) => {
+  clients: Client[];
+  treeData: NodeData[];
+
+  private _transformer = (node: NodeData, level: number) => {
     return {
       expandable: !!node.children && node.children.length > 0,
       name: node.name,
@@ -73,8 +54,13 @@ export class MaterialTreeComponent {
 
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
-  constructor(private router: Router) {
-    this.dataSource.data = TREE_DATA;
+  constructor(private clientService: ClientService, private router: Router) {
+  }
+
+  ngOnInit(): void {
+    this.getTreeData();
+    console.log(this.treeData);
+    this.dataSource.data = this.treeData;
   }
 
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
@@ -93,7 +79,30 @@ export class MaterialTreeComponent {
 
   dashboard() {
     this.router.navigate(['dashboard']);
-    this.dataSource.data = TREE_DATA;
+  }
+
+  private getTreeData() {
+    this.clients = this.clientService.getClients();
+    let clientNodes: NodeData[] = [];
+    for (const client of this.clients) {
+      let node = new NodeData();
+      node.id = client.clientId;
+      node.name = client.clientName;
+      node.children = this.setChildren(client);
+      clientNodes.push(node);
+    }
+    this.treeData = clientNodes;
+  }
+
+  private setChildren(client: Client): NodeData[] {
+    let children: NodeData[] = [];
+    for (const tenant of client.tenants) {
+      let node = new NodeData();
+      node.id = tenant.tenantId
+      node.name = tenant.tenantName;
+      children.push(node);
+    }
+    return children;
   }
 
 }
