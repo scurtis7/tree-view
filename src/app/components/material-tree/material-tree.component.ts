@@ -5,21 +5,9 @@ import { FlatTreeControl } from "@angular/cdk/tree";
 import { ClientService } from "../../service/client.service";
 import { Client } from "../../model/client";
 import { Tenant } from "../../model/tenant";
+import { ClientTenantFlatNode } from "../../model/client-tenant-flat-node";
+import { NodeData } from "../../model/node-data";
 
-
-class NodeData {
-  id: number;
-  name: string;
-  children?: NodeData[];
-}
-
-/** Flat node with expandable and level information */
-interface ExampleFlatNode {
-  expandable: boolean;
-  id: number;
-  name: string;
-  level: number;
-}
 
 @Component({
   selector: 'app-material-tree',
@@ -29,8 +17,11 @@ interface ExampleFlatNode {
 export class MaterialTreeComponent implements OnInit {
 
   clientSelected = false;
-  tenantSelected = false;
+  selectedClientId = 0;
   selectedClient: Client = null;
+
+  tenantSelected = false;
+  selectedTenantId = 0;
   selectedTenant: Tenant = null;
 
   clients: Client[];
@@ -45,7 +36,7 @@ export class MaterialTreeComponent implements OnInit {
     };
   };
 
-  treeControl = new FlatTreeControl<ExampleFlatNode>(
+  treeControl = new FlatTreeControl<ClientTenantFlatNode>(
     node => node.level,
     node => node.expandable,
   );
@@ -68,7 +59,7 @@ export class MaterialTreeComponent implements OnInit {
     this.dataSource.data = this.treeData;
   }
 
-  hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
+  hasChild = (_: number, node: ClientTenantFlatNode) => node.expandable;
 
   dashboard() {
     this.router.navigate(['dashboard']);
@@ -77,35 +68,44 @@ export class MaterialTreeComponent implements OnInit {
   selectClient(id: number) {
     this.tenantSelected = false;
     this.clientSelected = true;
+    this.selectedClientId = id;
+    this.selectedTenantId = 0;
     this.findClient(id);
   }
 
   selectTenant(id: number) {
     this.clientSelected = false;
     this.tenantSelected = true;
+    this.selectedClientId = 0;
+    this.selectedTenantId = id;
     this.findTenant(id);
   }
 
-  private findClient(id: number): Client {
-    for (const client of this.clients) {
-      if (client.clientId === id) {
-        this.selectedClient = client;
-        return;
-      }
+  getClientButtonClass(id: number): string {
+    if (id == this.selectedClientId) {
+      return "tree-button-selected";
     }
-    this.selectedClient = null;
+    return "tree-button";
+  }
+
+  getTenantButtonClass(id: number): string {
+    if (id == this.selectedTenantId) {
+      return "tree-button-selected";
+    }
+    return "tree-button";
+  }
+
+  private findClient(id: number) {
+    this.selectedClient = this.clients.find((client) => client.clientId == id);
   }
 
   private findTenant(id: number) {
     for (const client of this.clients) {
-      for (const tenant of client.tenants) {
-        if (tenant.tenantId === id) {
-          this.selectedTenant = tenant;
-          return;
-        }
+      this.selectedTenant = client.tenants.find((tenant) => tenant.tenantId == id);
+      if (this.selectedTenant) {
+        return;
       }
     }
-    this.selectedTenant = null;
   }
 
   private getTreeData() {

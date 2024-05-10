@@ -11,7 +11,7 @@
       <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
         <!-- use a disabled button to provide padding for tree leaf -->
         <button mat-icon-button disabled></button>
-        <button mat-button (click)="selectTenant(node.id)">{{node.name}}</button>
+        <button mat-button (click)="selectTenant(node.id)" [ngClass]="getTenantButtonClass(node.id)">{{node.name}}</button>
       </mat-tree-node>
       <!-- This is the tree node template for expandable nodes -->
       <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
@@ -20,16 +20,16 @@
             {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
           </mat-icon>
         </button>
-        <button mat-button (click)="selectClient(node.id)">{{node.name}}</button>
+        <button mat-button (click)="selectClient(node.id)" [ngClass]="getClientButtonClass(node.id)">{{node.name}}</button>
       </mat-tree-node>
     </mat-tree>
   </div>
-  <div class="tree-layout" *ngIf="clientSelected">
+  <div class="selection-layout mat-elevation-z5" *ngIf="clientSelected">
     {{selectedClient.clientId}}<br>
     {{selectedClient.clientName}}<br>
     {{selectedClient.clientDesc}}
   </div>
-  <div class="tree-layout" *ngIf="tenantSelected">
+  <div class="selection-layout mat-elevation-z5" *ngIf="tenantSelected">
     {{selectedTenant.tenantId}}<br>
     {{selectedTenant.tenantName}}<br>
     {{selectedTenant.tenantDesc}}

@@ -3,13 +3,17 @@
 .tree-container {
   margin: 20px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 3fr;
   grid-template-rows: auto;
 }
 
 .tree-layout {
-  border: 1px solid #D5D8DC;
+  margin-right: 20px;
+}
+
+.selection-layout {
   border-radius: 4px;
+  padding: 20px;
 }
 
 .example-tree-invisible {
@@ -37,4 +41,30 @@
  */
 .example-tree div[role=group] > .mat-tree-node {
   padding-left: 40px;
+}
+
+.tree-button {
+  //font-family: Tahoma, serif;
+  min-height: 1.8em !important;
+  height: 1.8em;
+  color: #1D335C !important;
+}
+
+.tree-button:hover {
+  min-height: 1.8em !important;
+  height: 1.8em;
+  color: #F5F5F5 !important;
+  background-color: #0548A0;
+}
+
+.tree-button-selected {
+  min-height: 1.8em !important;
+  height: 1.8em;
+  color: #F5F5F5 !important;
+  background-color: #0548A0;
+}
+
+.mat-tree-node {
+  min-height: 2em !important;
+  height: 2em;
 }
