@@ -1,3 +1,4 @@
+@import '../../../assets/styles/variables';
 @import '../../../assets/styles/common';
 
 .tree-container {
@@ -11,17 +12,12 @@
   margin-right: 20px;
 }
 
-.selection-layout {
-  border-radius: 4px;
-  padding: 20px;
-}
-
-.example-tree-invisible {
+.client-tree-invisible {
   display: none;
 }
 
-.example-tree ul,
-.example-tree li {
+.client-tree ul,
+.client-tree li {
   margin-top: 0;
   margin-bottom: 0;
   list-style-type: none;
@@ -30,7 +26,7 @@
 /*
  * This padding sets alignment of the nested nodes.
  */
-.example-tree .mat-nested-tree-node div[role=group] {
+.client-tree .mat-nested-tree-node div[role=group] {
   padding-left: 40px;
 }
 
@@ -39,7 +35,7 @@
  * Leaf nodes need to have padding so as to align with other non-leaf nodes
  * under the same parent.
  */
-.example-tree div[role=group] > .mat-tree-node {
+.client-tree div[role=group] > .mat-tree-node {
   padding-left: 40px;
 }
 
@@ -67,4 +63,53 @@
 .mat-tree-node {
   min-height: 2em !important;
   height: 2em;
+}
+
+// Selection Styles
+.selection-layout {
+  border-radius: 4px;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto auto auto auto;
+}
+
+.selection-title-layout {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto;
+  padding-bottom: 20px;
+}
+
+.selection-title {
+  font-size: 28px;
+}
+
+.new-client-button {
+  width: 150px;
+  justify-self: end;
+  align-self: center;
+  border-radius: 5px;
+}
+
+.selection-field {
+  display: grid;
+  grid-template-columns: 150px auto;
+  grid-template-rows: auto;
+}
+
+.selection-field-title {
+  font-size: 18px;
+}
+
+.selection-input {
+  height: 30px;
+}
+
+.selection-checkbox {
+  justify-self: start;
+}
+
+.action-section {
+  justify-self: end;
 }

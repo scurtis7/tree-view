@@ -1,3 +1,5 @@
+@import "../styles/variables.scss";
+
 .header-container {
   background-color: #1A5276;
   border-radius: 5px;
@@ -17,18 +19,41 @@
   background-color: #E5E8E8;
 }
 
-.button {
-  padding: 20px;
-  background-color: #99A3A4;
-  color: #1B2631 !important;
-}
-
-.button:hover {
-  background-color: #21618C;
-  color: whitesmoke !important;
-}
+//.button {
+//  padding-left: 20px;
+//  padding-right: 20px;
+//  background-color: #99A3A4;
+//  color: #1B2631 !important;
+//}
+//
+//.button:hover {
+//  background-color: #21618C;
+//  color: whitesmoke !important;
+//}
 
 .button-div {
   margin-top: 20px;
   margin-left: 20px;
+}
+
+.tmd-button {
+  border-radius: 5px;
+}
+
+.tmd-button-blue {
+  @extend .tmd-button;
+  background-color: $tmd-normal-blue;
+  color: $tmd-white !important;
+}
+
+.tmd-button-grey {
+  @extend .tmd-button;
+  color: $tmd-dark-grey !important;
+  background-color: $tmd-light-grey;
+}
+
+.dropdown-font {
+  font-size: 12px;
+  background-color: $tmd-white;
+  color: $tmd-dark-blue;
 }
