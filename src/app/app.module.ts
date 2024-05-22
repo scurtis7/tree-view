@@ -11,9 +11,9 @@ import { MaterialTreeComponent } from './components/material-tree/material-tree.
 import { BootstrapTreeComponent } from './components/bootstrap-tree/bootstrap-tree.component';
 
 const routes: Routes = [
-  { path: 'dashboard',  component: DashboardComponent },
-  { path: 'material',  component: MaterialTreeComponent },
-  { path: 'bootstrap',  component: BootstrapTreeComponent },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'material', component: MaterialTreeComponent },
+  { path: 'bootstrap', component: BootstrapTreeComponent },
   { path: '**', redirectTo: 'dashboard' }
 ];
 
@@ -36,4 +36,5 @@ const routes: Routes = [
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

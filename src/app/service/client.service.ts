@@ -10,7 +10,8 @@ export class ClientService {
 
   clients: any = (clientData as any).default;
 
-  constructor() { }
+  constructor() {
+  }
 
   getClients() {
     return this.clients;

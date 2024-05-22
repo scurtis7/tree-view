@@ -2,7 +2,7 @@
   <span class="page-title"> Material UI Tree </span>
 </div>
 <div class="button-div">
-  <button class="tmd-button-blue" mat-button (click)="dashboard()">Return to Dashboard</button>
+  <button (click)="dashboard()" class="tmd-button-blue" mat-button>Return to Dashboard</button>
 </div>
 <div class="tree-container">
   <div class="tree-layout">
@@ -10,68 +10,68 @@
       <!-- This is the tree node template for leaf nodes -->
       <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
         <!-- use a disabled button to provide padding for tree leaf -->
-        <button mat-icon-button disabled></button>
-        <button mat-button (click)="selectTenant(node.id)" [ngClass]="getTenantButtonClass(node.id)">{{node.name}}</button>
+        <button disabled mat-icon-button></button>
+        <button (click)="selectTenant(node.id)" [ngClass]="getTenantButtonClass(node.id)" mat-button>{{ node.name }}</button>
       </mat-tree-node>
       <!-- This is the tree node template for expandable nodes -->
       <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
-        <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
+        <button [attr.aria-label]="'Toggle ' + node.name" mat-icon-button matTreeNodeToggle>
           <mat-icon class="mat-icon-rtl-mirror">
-            {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+            {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
           </mat-icon>
         </button>
-        <button mat-button (click)="selectClient(node.id)" [ngClass]="getClientButtonClass(node.id)">{{node.name}}</button>
+        <button (click)="selectClient(node.id)" [ngClass]="getClientButtonClass(node.id)" mat-button>{{ node.name }}</button>
       </mat-tree-node>
     </mat-tree>
   </div>
-  <div class="selection-layout mat-elevation-z5" *ngIf="clientSelected">
+  <div *ngIf="clientSelected" class="selection-layout mat-elevation-z5">
     <div class="selection-title-layout">
       <span class="selection-title">Manage Client: {{ selectedClient.clientName }}</span>
-      <button mat-button class="tmd-button-blue new-client-button">New Client</button>
+      <button class="tmd-button-blue new-client-button" mat-button>New Client</button>
     </div>
     <div class="selection-field">
       <span class="selection-field-title">Client Name:</span>
-      <input type="text" [ngModel]="selectedClient.clientName" class="form-control selection-input">
+      <input [ngModel]="selectedClient.clientName" class="form-control selection-input" type="text">
     </div>
     <div class="selection-field">
       <span>Client Description:</span>
-      <input type="text" [ngModel]="selectedClient.clientDesc" class="form-control selection-input">
+      <input [ngModel]="selectedClient.clientDesc" class="form-control selection-input" type="text">
     </div>
     <div class="selection-field">
       <span>Client Domain:</span>
-      <input type="text" class="form-control selection-input">
+      <input class="form-control selection-input" type="text">
     </div>
     <div class="selection-field">
       <span>Active:</span>
-      <input type="checkbox" checked class="selection-checkbox">
+      <input checked class="selection-checkbox" type="checkbox">
     </div>
     <div class="action-section">
-      <button mat-button class="tmd-button-blue new-client-button">Save</button>
+      <button class="tmd-button-blue new-client-button" mat-button>Save</button>
     </div>
   </div>
-  <div class="selection-layout mat-elevation-z5" *ngIf="tenantSelected">
+  <div *ngIf="tenantSelected" class="selection-layout mat-elevation-z5">
     <div class="selection-title-layout">
       <span class="selection-title">Manage Tenant: {{ selectedTenant.tenantName }}</span>
-      <button mat-button class="tmd-button-blue new-client-button">New Tenant</button>
+      <button class="tmd-button-blue new-client-button" mat-button>New Tenant</button>
     </div>
     <div class="selection-field">
       <span class="selection-field-title">Tenant Name:</span>
-      <input type="text" [ngModel]="selectedTenant.tenantName" class="form-control selection-input">
+      <input [ngModel]="selectedTenant.tenantName" class="form-control selection-input" type="text">
     </div>
     <div class="selection-field">
       <span>Tenant Description:</span>
-      <input type="text" [ngModel]="selectedTenant.tenantDesc" class="form-control selection-input">
+      <input [ngModel]="selectedTenant.tenantDesc" class="form-control selection-input" type="text">
     </div>
     <div class="selection-field">
       <span>Tenant Domain:</span>
-      <input type="text" class="form-control selection-input">
+      <input class="form-control selection-input" type="text">
     </div>
     <div class="selection-field">
       <span>Active:</span>
-      <input type="checkbox" checked class="selection-checkbox">
+      <input checked class="selection-checkbox" type="checkbox">
     </div>
     <div class="action-section">
-      <button mat-button class="tmd-button-blue new-client-button">Save</button>
+      <button class="tmd-button-blue new-client-button" mat-button>Save</button>
     </div>
   </div>
 </div>

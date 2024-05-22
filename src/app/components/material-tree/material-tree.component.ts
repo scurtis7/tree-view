@@ -36,16 +36,16 @@ export class MaterialTreeComponent implements OnInit {
     };
   };
 
-  treeControl = new FlatTreeControl<ClientTenantFlatNode>(
-    node => node.level,
-    node => node.expandable,
-  );
-
   treeFlattener = new MatTreeFlattener(
     this._transformer,
     node => node.level,
     node => node.expandable,
     node => node.children,
+  );
+
+  treeControl = new FlatTreeControl<ClientTenantFlatNode>(
+    node => node.level,
+    node => node.expandable,
   );
 
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
