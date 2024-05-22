@@ -4,6 +4,9 @@
 <div class="button-div">
   <button (click)="dashboard()" class="tmd-button-blue" mat-button>Return to Dashboard</button>
 </div>
+<div class="button-div">
+  <button class="tmd-button-blue new-client-button" mat-button>New Client</button>
+</div>
 <div class="tree-container">
   <div class="tree-layout">
     <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
@@ -27,7 +30,7 @@
   <div *ngIf="clientSelected" class="selection-layout mat-elevation-z5">
     <div class="selection-title-layout">
       <span class="selection-title">Manage Client: {{ selectedClient.clientName }}</span>
-      <button class="tmd-button-blue new-client-button" mat-button>New Client</button>
+      <button class="tmd-button-blue new-client-button" mat-button>New Tenant</button>
     </div>
     <div class="selection-field">
       <span class="selection-field-title">Client Name:</span>
@@ -52,7 +55,6 @@
   <div *ngIf="tenantSelected" class="selection-layout mat-elevation-z5">
     <div class="selection-title-layout">
       <span class="selection-title">Manage Tenant: {{ selectedTenant.tenantName }}</span>
-      <button class="tmd-button-blue new-client-button" mat-button>New Tenant</button>
     </div>
     <div class="selection-field">
       <span class="selection-field-title">Tenant Name:</span>
