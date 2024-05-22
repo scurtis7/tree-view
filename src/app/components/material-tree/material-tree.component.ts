@@ -26,28 +26,10 @@ export class MaterialTreeComponent implements OnInit {
 
   clients: Client[];
   treeData: NodeData[];
-
-  private _transformer = (node: NodeData, level: number) => {
-    return {
-      expandable: !!node.children && node.children.length > 0,
-      id: node.id,
-      name: node.name,
-      level: level,
-    };
-  };
-
   treeControl = new FlatTreeControl<ClientTenantFlatNode>(
     node => node.level,
     node => node.expandable,
   );
-
-  treeFlattener = new MatTreeFlattener(
-    this._transformer,
-    node => node.level,
-    node => node.expandable,
-    node => node.children,
-  );
-
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
   constructor(private clientService: ClientService, private router: Router) {
@@ -94,6 +76,22 @@ export class MaterialTreeComponent implements OnInit {
     }
     return "tree-button";
   }
+
+  private _transformer = (node: NodeData, level: number) => {
+    return {
+      expandable: !!node.children && node.children.length > 0,
+      id: node.id,
+      name: node.name,
+      level: level,
+    };
+  };
+
+  treeFlattener = new MatTreeFlattener(
+    this._transformer,
+    node => node.level,
+    node => node.expandable,
+    node => node.children,
+  );
 
   private findClient(id: number) {
     this.selectedClient = this.clients.find((client) => client.clientId == id);
